@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const Workout = require('../../models/Workout');
 
 mongoose.connect('mongodb://localhost/workout', {
   useNewUrlParser: true,
@@ -9,7 +10,14 @@ mongoose.connect('mongodb://localhost/workout', {
 const router = require('express').Router();
 
 router.get('/workouts', (req, res) => {
-  console.log('getLastWorkout Triggered, /api/workouts fetched');
+  Workout.find()
+    .then((data) => {
+      console.log(data[8]);
+      res.json(data);
+    })
+    .catch((err) => {
+      res.json(err);
+    });
 });
 
 router.post('/workouts', (req, res) => {
