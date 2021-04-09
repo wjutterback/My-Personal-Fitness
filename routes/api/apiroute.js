@@ -59,7 +59,18 @@ router.put('/workouts/:id', (req, res) => {
 
 router.get('/workouts/range', (req, res) => {
   Workout.find()
+    .lean()
+    .limit(7)
+    .sort({ _id: -1 })
     .then((data) => {
+      data.forEach((id) => {
+        const durationArr = [];
+        id.exercises.forEach((exercise) => {
+          durationArr.push(exercise.duration);
+        });
+        const totalDuration = durationArr.reduce((a, b) => a + b);
+        Object.assign(id, { totalDuration: totalDuration });
+      });
       res.json(data);
     })
     .catch((err) => {
