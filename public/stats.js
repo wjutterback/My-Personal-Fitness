@@ -27,7 +27,6 @@ function populateChart(data) {
   let pounds = calculateTotalWeight(data);
   let workouts = workoutNames(data);
   const colors = generatePalette();
-
   let line = document.querySelector('#canvas').getContext('2d');
   let bar = document.querySelector('#canvas2').getContext('2d');
   let pie = document.querySelector('#canvas3').getContext('2d');
@@ -176,9 +175,7 @@ function populateChart(data) {
 
 function calculateTotalWeight(data) {
   let totals = [];
-  console.log(data);
   data.forEach((workout) => {
-    console.log('workout', workout);
     const workoutTotal = workout.exercises.reduce((total, { type, weight }) => {
       if (type === 'resistance') {
         return total + weight;
@@ -186,9 +183,7 @@ function calculateTotalWeight(data) {
         return total;
       }
     }, 0);
-    console.log('added weight value', workoutTotal);
     totals.push(workoutTotal);
-    console.log('after weight push', totals);
   });
 
   return totals;
@@ -198,13 +193,15 @@ function workoutNames(data) {
   let workouts = [];
 
   data.forEach((workout) => {
+    console.log('workout', workout);
     workout.exercises.forEach((exercise) => {
+      console.log('exercise', exercise);
       workouts.push(exercise.name);
     });
   });
-
+  console.log(workouts);
   // return de-duplicated array with JavaScript `Set` object
-  return [...new Set(workouts)];
+  return workouts;
 }
 
 // get all workout data from back-end
