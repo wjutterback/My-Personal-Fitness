@@ -22,6 +22,7 @@ function generatePalette() {
 }
 
 function populateChart(data) {
+  console.log(data);
   let durations = data.map(({ totalDuration }) => totalDuration);
   let pounds = calculateTotalWeight(data);
   let workouts = workoutNames(data);
@@ -175,8 +176,9 @@ function populateChart(data) {
 
 function calculateTotalWeight(data) {
   let totals = [];
-
+  console.log(data);
   data.forEach((workout) => {
+    console.log('workout', workout);
     const workoutTotal = workout.exercises.reduce((total, { type, weight }) => {
       if (type === 'resistance') {
         return total + weight;
@@ -184,8 +186,9 @@ function calculateTotalWeight(data) {
         return total;
       }
     }, 0);
-
+    console.log('added weight value', workoutTotal);
     totals.push(workoutTotal);
+    console.log('after weight push', totals);
   });
 
   return totals;

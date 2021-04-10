@@ -30,7 +30,6 @@ router.get('/workouts', (req, res) => {
 
 //When New Workout clicked - created new entry in DB
 router.post('/workouts', (req, res) => {
-  console.log('workout created');
   Workout.create({})
     .then((data) => res.json(data))
     .catch((err) => {
@@ -43,7 +42,6 @@ router.post('/workouts', (req, res) => {
 router.put('/workouts/:id', (req, res) => {
   const id = req.params.id;
   const body = req.body;
-  console.log(JSON.stringify(req.body));
   Workout.findOneAndUpdate(
     { _id: id },
     { $push: { exercises: body } },
@@ -61,8 +59,9 @@ router.get('/workouts/range', (req, res) => {
   Workout.find()
     .lean()
     .limit(7)
-    .sort({ _id: -1 })
+    .sort({ day: -1 })
     .then((data) => {
+      data.sort((a, b) => a.day - b.day);
       data.forEach((id) => {
         const durationArr = [];
         id.exercises.forEach((exercise) => {
