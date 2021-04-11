@@ -8,6 +8,8 @@
 
 ## Link to Deployed Application
 
+https://my-personal-fitness.herokuapp.com
+
 ## Table of Contents
 
 - [Installation](#Installation)
