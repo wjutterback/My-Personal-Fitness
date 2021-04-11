@@ -193,13 +193,10 @@ function workoutNames(data) {
   let workouts = [];
 
   data.forEach((workout) => {
-    console.log('workout', workout);
     workout.exercises.forEach((exercise) => {
-      console.log('exercise', exercise);
       workouts.push(exercise.name);
     });
   });
-  console.log(workouts);
   // return de-duplicated array with JavaScript `Set` object
   return workouts;
 }
